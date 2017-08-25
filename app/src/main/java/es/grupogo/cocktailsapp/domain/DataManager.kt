@@ -6,7 +6,7 @@ import io.reactivex.Observable
 /**
  * Created by jorge_cmata on 25/8/17.
  */
-class DataManager : RequestInterface {
+class DataManager {
 
     //Singleton
     object DataManagerProvider {
@@ -22,8 +22,8 @@ class DataManager : RequestInterface {
     //Functions
     //---- Request Manager functions ----//
 
-    override fun getCocktails(): Observable<List<Cocktail>> {
-        return requestManager.getCocktails()
+    fun getCocktails(): Observable<List<Cocktail>> {
+        return requestManager.requestCocktails()
     }
 
 

@@ -8,5 +8,5 @@ import io.reactivex.Observable
  */
 interface RequestInterface{
 
-    fun getCocktails() : Observable<List<Cocktail>>
+    fun requestCocktails() : Observable<List<Cocktail>>
 }
