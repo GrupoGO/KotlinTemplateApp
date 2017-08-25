@@ -1,4 +1,4 @@
-package es.grupogo.cocktailsapp.data.extensions
+package es.grupogo.cocktailsapp.extensions
 
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
