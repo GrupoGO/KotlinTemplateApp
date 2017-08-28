@@ -15,6 +15,6 @@ object DataMapper{
     }
 
     fun convertToCocktail(cocktailJSONObj: CocktailJSONObj): Cocktail {
-        return Cocktail(cocktailJSONObj.idDrink, cocktailJSONObj.strDrinkThumb, cocktailJSONObj.strDrink)
+        return Cocktail(cocktailJSONObj.idDrink, cocktailJSONObj.strDrink, cocktailJSONObj.strDrinkThumb)
     }
 }
