@@ -1,8 +1,9 @@
-package es.grupogo.cocktailsapp.ui.activities.mainActivity
+package es.grupogo.cocktailsapp.ui.fragments
 
 import es.grupogo.cocktailsapp.domain.Cocktail
 import es.grupogo.cocktailsapp.extensions.execute
 import es.grupogo.cocktailsapp.domain.DataManager
+import io.realm.RealmChangeListener
 import io.realm.RealmResults
 
 /**
@@ -17,17 +18,27 @@ class FeedPresenter(val view : FeedContract.View) : FeedContract.Presenter {
     }
 
     override fun start() {
-        //The presenter is started
+        //Getting cocktails from DB and setting a listener
+        val cocktailsList: RealmResults<Cocktail> = getCocktailsDB() as RealmResults<Cocktail>
+        cocktailsList.addChangeListener(RealmChangeListener<RealmResults<Cocktail>> {
+            view.setRecyclerItems(it)
+        })
+        //Update view with saved values
+        view.setRecyclerItems(cocktailsList)
+        //Online call
         getCocktails()
     }
 
     override fun getCocktails(){
-
         dataManager.getCocktails({
-            view.setRecyclerItems(it)
+          //  view.setRecyclerItems(it)
         }, {
             it.printStackTrace()
             view.toast(it.message)
         })
+    }
+
+    override fun getCocktailsDB(): List<Cocktail>{
+        return dataManager.getCocktailsDB()
     }
 }

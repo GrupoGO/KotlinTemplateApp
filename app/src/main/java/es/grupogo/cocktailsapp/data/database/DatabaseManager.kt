@@ -22,12 +22,6 @@ class DatabaseManager : DatabaseInterface{
         realm.commitTransaction()
     }
 
-    fun saveCocktail(realm: Realm, cocktail: Cocktail) {
-        realm.beginTransaction()
-        realm.copyToRealmOrUpdate(cocktail)
-        realm.commitTransaction()
-    }
-
     override fun retrieveCocktails(realm: Realm): RealmResults<Cocktail> {
         realm.beginTransaction()
         val cocktails = realm.where(Cocktail::class.java).findAll()

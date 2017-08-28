@@ -17,7 +17,7 @@ class CockailsRecyclerAdapter(val items: List<Cocktail>) :
     }
 
     override fun onBindViewHolder(holder: CocktailViewHolder, position: Int) {
-        holder.textView.text = items[position].name
+        holder.textView.text = items.get(position).name
     }
 
     override fun getItemCount(): Int = items.size

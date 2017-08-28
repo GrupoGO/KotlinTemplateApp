@@ -19,7 +19,7 @@ class DataManager {
         }
     }
 
-    //Initialize managers (lazy -> The initialisation of the property is delayed up to the moment. We can save memory and skip the initialisation until the property is required)
+    //Initialize managers (lazy -> The initialisation of the property is delayed up to the moment. We can save memory and skip the initialisation until the property is required)'
     val requestManager : RequestManager by lazy {RequestManager.provideRequestManager()}
     val databaseManager : DatabaseManager by lazy {DatabaseManager.provideDatabaseManager()}
     val realm : Realm by lazy {Realm.getDefaultInstance()}
@@ -42,7 +42,7 @@ class DataManager {
 
     //---- Database Manager functions ----//
 
-    fun getCocktailsDB(): RealmResults<Cocktail>{
+    fun getCocktailsDB(): List<Cocktail>{
         return databaseManager.retrieveCocktails(realm)
     }
 }

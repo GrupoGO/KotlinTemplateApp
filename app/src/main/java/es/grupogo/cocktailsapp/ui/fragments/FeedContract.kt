@@ -1,8 +1,9 @@
-package es.grupogo.cocktailsapp.ui.activities.mainActivity
+package es.grupogo.cocktailsapp.ui.fragments
 
 import com.example.carlosolmedo.kotlinapp.mvp.BasePresenter
 import com.example.carlosolmedo.kotlinapp.mvp.BaseView
 import es.grupogo.cocktailsapp.domain.Cocktail
+import io.realm.RealmResults
 
 /**
  * Created by jorge_cmata on 24/8/17.
@@ -20,6 +21,8 @@ interface FeedContract {
     interface Presenter : BasePresenter{
 
         fun getCocktails()
+
+        fun getCocktailsDB(): List<Cocktail>
 
     }
 }

@@ -6,8 +6,6 @@ import io.realm.annotations.PrimaryKey
 /**
  * Created by jorge_cmata on 25/8/17.
  */
-// data class Cocktail(val id: String, val imageUrl: String?, val name: String)
-
 open class Cocktail(
         @PrimaryKey open var id: String = "",
         open var name: String? = null,
