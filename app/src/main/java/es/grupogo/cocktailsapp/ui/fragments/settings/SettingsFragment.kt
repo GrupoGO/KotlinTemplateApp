@@ -1,5 +1,6 @@
 package es.grupogo.cocktailsapp.ui.fragments.settings
 
+import android.app.DatePickerDialog
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
@@ -15,8 +16,12 @@ import es.grupogo.cocktailsapp.R
 import es.grupogo.cocktailsapp.data.server.RequestManager
 import es.grupogo.cocktailsapp.domain.Cocktail
 import es.grupogo.cocktailsapp.domain.SettingsManager
+import es.grupogo.cocktailsapp.extensions.*
 import es.grupogo.cocktailsapp.ui.adapters.CockailsRecyclerAdapter
 import es.grupogo.cocktailsapp.ui.dialogs.EditTextDialog
+import es.grupogo.cocktailsapp.ui.dialogs.RadioGroupDialog
+import java.text.SimpleDateFormat
+import java.util.*
 
 /**
  * Created by jorge_cmata on 28/8/17.
@@ -89,8 +94,8 @@ class SettingsFragment : Fragment() , SettingsContract.View {
         mRadioGroupRowTitle.text = "Gender"
         mRadioGroupRowValue.text = settingsManager.getGender()
 
-        mCalendarRowTitle.text = "Birthday"
-        mCalendarRowValue.text = settingsManager.getBirthday()
+        mCalendarRowTitle.text = "Birthdate"
+        mCalendarRowValue.text = settingsManager.getBirthdate()
 
     }
 
@@ -100,7 +105,7 @@ class SettingsFragment : Fragment() , SettingsContract.View {
 
     private fun setListeners(){
         mEditTextRow.setOnClickListener({
-            val dialog: EditTextDialog = EditTextDialog.newInstance("Username", mEditTextRowValue.text.toString(),"Ok", "Cancel")
+            val dialog = EditTextDialog.newInstance("Username", mEditTextRowValue.text.toString(),"Ok", "Cancel")
             dialog.setCallback(object : EditTextDialog.EditTextDialogListener {
                 override fun onPositiveClick(text: String){
                     settingsManager.setUsername(text)
@@ -110,6 +115,30 @@ class SettingsFragment : Fragment() , SettingsContract.View {
             })
             dialog.show(childFragmentManager, "tag")
         })
+
+        mRadioGroupRow.setOnClickListener {
+            val dialog = RadioGroupDialog.newInstance("Gender", arrayListOf("Male", "Female"), mRadioGroupRowValue.text.toString(), "Ok", "Cancel")
+            dialog.setCallback(object: RadioGroupDialog.RadioGroupDialogListener{
+                override fun onPositiveClick(text: String) {
+                    settingsManager.setGender(text)
+                    mRadioGroupRowValue.text = text
+                }
+                override fun onNegativeClick() {}
+            })
+            dialog.show(childFragmentManager, "tag")
+        }
+
+        mCalendarRow.setOnClickListener {
+            var oldDate = Date()
+            if(!mCalendarRowValue.text.toString().isEmpty()){
+                oldDate = SimpleDateFormat("yyyy-MM-dd").parse(mCalendarRowValue.text.toString())
+            }
+            DatePickerDialog(this.activity, DatePickerDialog.OnDateSetListener { datePicker, year, month, day ->
+                val dateString: String = Date().getDateString(year, month, day, "yyyy-MM-dd")
+                settingsManager.setBirthdate(dateString)
+                mCalendarRowValue.text = dateString
+            }, oldDate.getYearNumber(), oldDate.getMonthNumber(), oldDate.getDayNumber()).show()
+        }
 
     }
 

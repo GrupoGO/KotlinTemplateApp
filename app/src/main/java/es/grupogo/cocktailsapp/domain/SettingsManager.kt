@@ -23,7 +23,7 @@ class SettingsManager(context: Context) {
     //KEYS
     private val KEY_USERNAME = "key_username"
     private val KEY_GENDER = "key_gender"
-    private val KEY_BIRTHDAY = "key_birthday"
+    private val KEY_BIRTHDATE = "key_birthdate"
 
     //Functions
     fun setUsername(username: String) = editor.putString(KEY_USERNAME, username).apply()
@@ -32,8 +32,8 @@ class SettingsManager(context: Context) {
     fun setGender(gender: String) = editor.putString(KEY_GENDER, gender).apply()
     fun getGender(): String = sharedPreferences.getString(KEY_GENDER,"")
 
-    fun setBirthday(birthday: String) = editor.putString(KEY_BIRTHDAY, birthday).apply()
-    fun getBirthday(): String = sharedPreferences.getString(KEY_BIRTHDAY,"")
+    fun setBirthdate(birthday: String) = editor.putString(KEY_BIRTHDATE, birthday).apply()
+    fun getBirthdate(): String = sharedPreferences.getString(KEY_BIRTHDATE,"")
 
 
 }
