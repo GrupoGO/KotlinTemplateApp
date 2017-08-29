@@ -1,9 +1,8 @@
-package es.grupogo.cocktailsapp.ui.fragments
+package es.grupogo.cocktailsapp.ui.fragments.feed
 
 import com.example.carlosolmedo.kotlinapp.mvp.BasePresenter
 import com.example.carlosolmedo.kotlinapp.mvp.BaseView
 import es.grupogo.cocktailsapp.domain.Cocktail
-import io.realm.RealmResults
 
 /**
  * Created by jorge_cmata on 24/8/17.

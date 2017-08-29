@@ -13,7 +13,7 @@ import io.realm.RealmResults
 class DataManager {
 
     //Singleton
-    object DataManagerProvider {
+    companion object DataManagerProvider {
         fun provideDataManager(): DataManager {
             return DataManager()
         }

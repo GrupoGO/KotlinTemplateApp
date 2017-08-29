@@ -1,4 +1,4 @@
-package es.grupogo.cocktailsapp.ui.fragments
+package es.grupogo.cocktailsapp.ui.fragments.feed
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -11,7 +11,6 @@ import android.widget.Toast
 import es.grupogo.cocktailsapp.R
 import es.grupogo.cocktailsapp.domain.Cocktail
 import es.grupogo.cocktailsapp.ui.adapters.CockailsRecyclerAdapter
-import kotlinx.android.synthetic.main.fragment_feed.*
 
 /**
  * Created by jorge_cmata on 28/8/17.

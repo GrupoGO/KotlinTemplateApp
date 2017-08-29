@@ -8,7 +8,7 @@ import es.grupogo.cocktailsapp.R
 /**
  * Created by carlosolmedo on 28/8/17.
  */
-inline fun ImageView.loadImage(url: String) {
+fun ImageView.loadImage(url: String) {
 
     val options = RequestOptions()
             .centerCrop()

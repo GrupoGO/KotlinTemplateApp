@@ -1,7 +1,6 @@
-package es.grupogo.cocktailsapp.ui.fragments
+package es.grupogo.cocktailsapp.ui.fragments.feed
 
 import es.grupogo.cocktailsapp.domain.Cocktail
-import es.grupogo.cocktailsapp.extensions.execute
 import es.grupogo.cocktailsapp.domain.DataManager
 import io.realm.RealmChangeListener
 import io.realm.RealmResults
@@ -11,7 +10,7 @@ import io.realm.RealmResults
  */
 class FeedPresenter(val view : FeedContract.View) : FeedContract.Presenter {
 
-    val dataManager : DataManager by lazy { DataManager.DataManagerProvider.provideDataManager() }
+    val dataManager : DataManager by lazy { DataManager.provideDataManager() }
 
     init {
         this.view.setPresenter(this)
