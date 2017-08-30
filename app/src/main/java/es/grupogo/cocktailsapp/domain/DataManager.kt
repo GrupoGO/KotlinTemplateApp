@@ -1,5 +1,6 @@
 package es.grupogo.cocktailsapp.domain
 
+import android.content.Context
 import es.grupogo.cocktailsapp.data.database.DatabaseManager
 import es.grupogo.cocktailsapp.data.server.*
 import es.grupogo.cocktailsapp.extensions.execute
@@ -10,7 +11,7 @@ import io.realm.RealmResults
 /**
  * Created by jorge_cmata on 25/8/17.
  */
-class DataManager {
+class DataManager() {
 
     //Singleton
     companion object DataManagerProvider {
@@ -22,6 +23,7 @@ class DataManager {
     //Initialize managers (lazy -> The initialisation of the property is delayed up to the moment. We can save memory and skip the initialisation until the property is required)'
     val requestManager : RequestManager by lazy {RequestManager.provideRequestManager()}
     val databaseManager : DatabaseManager by lazy {DatabaseManager.provideDatabaseManager()}
+    //val sessionManager : SessionManager by lazy {SessionManager.provideSessionManager(context)}
     val realm : Realm by lazy {Realm.getDefaultInstance()}
 
 
@@ -44,5 +46,32 @@ class DataManager {
 
     fun getCocktailsDB(): List<Cocktail>{
         return databaseManager.retrieveCocktails(realm)
+    }
+
+    fun signIn(username: String, password: String, onSuccess: () -> Unit, onError: (t: Throwable) -> Unit) {
+
+        when {
+            username.isEmpty() -> onError(Exception("Username is empty"))
+            password.isEmpty() -> onError(Exception("Password is empty"))
+            else -> {
+                //sessionManager.createSession(username)
+                onSuccess()
+            }
+        }
+    }
+    fun signUp(username: String, password: String, onSuccess: () -> Unit, onError: (t: Throwable) -> Unit) {
+
+        when {
+            username.isEmpty() -> onError(Exception("Username is empty"))
+            password.isEmpty() -> onError(Exception("Password is empty"))
+            else -> {
+                //sessionManager.createSession(username)
+                onSuccess()
+            }
+        }
+    }
+
+    fun logout() {
+        //sessionManager.destroySession()
     }
 }

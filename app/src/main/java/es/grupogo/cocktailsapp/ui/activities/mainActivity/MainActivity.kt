@@ -1,5 +1,7 @@
 package es.grupogo.cocktailsapp.ui.activities.mainActivity
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import es.grupogo.cocktailsapp.R
@@ -13,6 +15,15 @@ import kotlinx.android.synthetic.main.activity_main.*
  * Created by jorge_cmata on 28/8/17.
  */
 class MainActivity : AppCompatActivity(), MainContract.View {
+
+    companion object Intents {
+
+        fun newIntent(context: Context) : Intent {
+
+            val intent = Intent(context, MainActivity::class.java)
+            return intent
+        }
+    }
 
     private lateinit var mPresenter : MainContract.Presenter
 
