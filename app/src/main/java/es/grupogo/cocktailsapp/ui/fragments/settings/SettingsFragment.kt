@@ -3,6 +3,7 @@ package es.grupogo.cocktailsapp.ui.fragments.settings
 import android.app.DatePickerDialog
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -28,6 +29,7 @@ import java.util.*
  */
 class SettingsFragment : Fragment() , SettingsContract.View {
 
+
     //New instance
     companion object {
         fun newInstance(): SettingsFragment {
@@ -37,8 +39,6 @@ class SettingsFragment : Fragment() , SettingsContract.View {
             return fragment
         }
     }
-
-    val settingsManager : SettingsManager by lazy { SettingsManager.provideSettingsManager(context)}
 
     //References
     private lateinit var mPresenter : SettingsContract.Presenter
@@ -65,7 +65,6 @@ class SettingsFragment : Fragment() , SettingsContract.View {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         bindViews(view)
-        setViewValues()
 
         //Kick off presenter
         mPresenter.start()
@@ -87,42 +86,24 @@ class SettingsFragment : Fragment() , SettingsContract.View {
         mCalendarRowTitle = mCalendarRow.findViewById(R.id.row_settings_title)
     }
 
-    private fun setViewValues(){
-        mEditTextRowTitle.text = "Username"
-        mEditTextRowValue.text = settingsManager.getUsername()
-
-        mRadioGroupRowTitle.text = "Gender"
-        mRadioGroupRowValue.text = settingsManager.getGender()
-
-        mCalendarRowTitle.text = "Birthdate"
-        mCalendarRowValue.text = settingsManager.getBirthdate()
-
-    }
-
     override fun setPresenter(presenter: SettingsContract.Presenter) {
         mPresenter = presenter
     }
 
     private fun setListeners(){
         mEditTextRow.setOnClickListener({
-            val dialog = EditTextDialog.newInstance("Username", mEditTextRowValue.text.toString(),"Ok", "Cancel")
+            val dialog = EditTextDialog.newInstance(mEditTextRowTitle.text.toString(), mEditTextRowValue.text.toString(),"Ok", "Cancel")
             dialog.setCallback(object : EditTextDialog.EditTextDialogListener {
-                override fun onPositiveClick(text: String){
-                    settingsManager.setUsername(text)
-                    mEditTextRowValue.text = text
-                }
-                override fun onNegativeClick(){}
+                override fun onPositiveClick(text: String) = mPresenter.updateUsername(text)
+                override fun onNegativeClick() {}
             })
             dialog.show(childFragmentManager, "tag")
         })
 
         mRadioGroupRow.setOnClickListener {
-            val dialog = RadioGroupDialog.newInstance("Gender", arrayListOf("Male", "Female"), mRadioGroupRowValue.text.toString(), "Ok", "Cancel")
+            val dialog = RadioGroupDialog.newInstance(mRadioGroupRowTitle.text.toString(), arrayListOf("Male", "Female"), mRadioGroupRowValue.text.toString(), "Ok", "Cancel")
             dialog.setCallback(object: RadioGroupDialog.RadioGroupDialogListener{
-                override fun onPositiveClick(text: String) {
-                    settingsManager.setGender(text)
-                    mRadioGroupRowValue.text = text
-                }
+                override fun onPositiveClick(text: String) = mPresenter.updateGender(text)
                 override fun onNegativeClick() {}
             })
             dialog.show(childFragmentManager, "tag")
@@ -134,12 +115,24 @@ class SettingsFragment : Fragment() , SettingsContract.View {
                 oldDate = SimpleDateFormat("yyyy-MM-dd").parse(mCalendarRowValue.text.toString())
             }
             DatePickerDialog(this.activity, DatePickerDialog.OnDateSetListener { datePicker, year, month, day ->
-                val dateString: String = Date().getDateString(year, month, day, "yyyy-MM-dd")
-                settingsManager.setBirthdate(dateString)
-                mCalendarRowValue.text = dateString
+                mPresenter.updateBirthdate(Date().getDateString(year, month, day, "yyyy-MM-dd"))
+
             }, oldDate.getYearNumber(), oldDate.getMonthNumber(), oldDate.getDayNumber()).show()
         }
-
     }
 
+    override fun updateUsernameView(usernameTitle: String, usernameValue: String) {
+        mEditTextRowTitle.text = usernameTitle
+        mEditTextRowValue.text = usernameValue
+    }
+
+    override fun updateGenderView(genderTitle: String, genderValue: String) {
+        mRadioGroupRowTitle.text = genderTitle
+        mRadioGroupRowValue.text = genderValue
+    }
+
+    override fun updateBirthdateView(birthdateTitle: String, birthdateValue: String) {
+        mCalendarRowTitle.text = birthdateTitle
+        mCalendarRowValue.text = birthdateValue
+    }
 }
