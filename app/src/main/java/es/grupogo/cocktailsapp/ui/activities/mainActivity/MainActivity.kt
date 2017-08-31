@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        initToolbar(R.id.toolbar, "CocktailsApp")
+        initToolbar(R.id.toolbar,  "CocktailsApp")
         setupBottomNavigationBar()
 
         //Instantiate presenter

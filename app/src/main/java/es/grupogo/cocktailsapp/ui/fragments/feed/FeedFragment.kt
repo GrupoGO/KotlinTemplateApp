@@ -63,7 +63,7 @@ class FeedFragment : Fragment() , FeedContract.View {
     //-------View Functions-------//
 
     override fun setRecyclerItems(items: List<Cocktail>){
-        mRecycler.adapter = CockailsRecyclerAdapter(items, {})
+        mRecycler.adapter = CockailsRecyclerAdapter(items, {context.toast(it.name.toString())})
     }
 
     override fun handleError(t: Throwable) {

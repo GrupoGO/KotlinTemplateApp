@@ -10,14 +10,17 @@ import kotlinx.android.synthetic.main.list_item_cocktail.view.*
 /**
  * Created by jorge_cmata on 24/8/17.
  */
-class CocktailViewHolder(itemView: View, itemClick: (Int) -> Unit) : RecyclerView.ViewHolder(itemView) {
+class CocktailViewHolder(itemView: View, itemClick: (Cocktail) -> Unit) : RecyclerView.ViewHolder(itemView) {
+
+    private lateinit  var item : Cocktail
 
     init {
-        itemView.setOnClickListener { itemClick(adapterPosition) }
+        itemView.setOnClickListener { itemClick(item) }
     }
 
     fun bindItem(c: Cocktail) {
 
+        item = c
         itemView.textViewName.text = c.name
     }
 }

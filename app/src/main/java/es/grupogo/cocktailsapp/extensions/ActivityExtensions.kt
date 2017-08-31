@@ -6,7 +6,8 @@ import es.grupogo.cocktailsapp.R
 /**
  * Created by jorge_cmata on 28/8/17.
  */
-fun AppCompatActivity.initToolbar(idToolbar: Int = R.id.toolbar, title: String = "", ishomeEnabled: Boolean = true){
+fun AppCompatActivity.initToolbar(idToolbar: Int, title: String = "", ishomeEnabled: Boolean = true){
+
     setSupportActionBar(findViewById(idToolbar))
     supportActionBar?.title = title
     supportActionBar?.setHomeButtonEnabled(ishomeEnabled)
