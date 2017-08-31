@@ -10,6 +10,8 @@ import io.realm.RealmResults
  */
 class FeedPresenter(val view : FeedContract.View) : FeedContract.Presenter {
 
+    private lateinit var items: List<Cocktail>
+
     val dataManager : DataManager by lazy { DataManager.provideDataManager() }
 
     init {
@@ -30,14 +32,18 @@ class FeedPresenter(val view : FeedContract.View) : FeedContract.Presenter {
 
     override fun getCocktails(){
         dataManager.getCocktails({
-          //  view.setRecyclerItems(it)
+            items = it
+            view.setRecyclerItems(it)
         }, {
             it.printStackTrace()
-            view.toast(it.message)
         })
     }
 
     override fun getCocktailsDB(): List<Cocktail>{
         return dataManager.getCocktailsDB()
+    }
+
+    override fun onCocktailClicked(position: Int) {
+
     }
 }

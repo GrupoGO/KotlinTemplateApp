@@ -12,6 +12,7 @@ import kotlinx.android.synthetic.main.activity_enter.*
  */
 class EnterActivity : AppCompatActivity(), EnterContract.View {
 
+
     private lateinit var mPresenter : EnterContract.Presenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,5 +39,9 @@ class EnterActivity : AppCompatActivity(), EnterContract.View {
 
     override fun goToSignUp() {
         //startActivity(SignUpActivity.newIntent(this))
+    }
+
+    override fun handleError(t: Throwable) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }

@@ -11,7 +11,6 @@ interface SignInContract {
 
     interface View : BaseView<Presenter> {
 
-        fun handleError(throwable: Throwable)
         fun enterApp()
     }
 

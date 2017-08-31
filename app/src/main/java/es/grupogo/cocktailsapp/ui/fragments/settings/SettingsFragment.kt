@@ -90,6 +90,10 @@ class SettingsFragment : Fragment() , SettingsContract.View {
         mPresenter = presenter
     }
 
+    override fun handleError(t: Throwable) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     private fun setListeners(){
         mEditTextRow.setOnClickListener({
             val dialog = EditTextDialog.newInstance(mEditTextRowTitle.text.toString(), mEditTextRowValue.text.toString(),"Ok", "Cancel")

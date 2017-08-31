@@ -11,17 +11,14 @@ interface FeedContract {
 
     interface View : BaseView<Presenter> {
 
+        fun showItemDetail(c: Cocktail)
         fun setRecyclerItems(items: List<Cocktail>)
-
-        fun toast(message: String?)
-
     }
 
     interface Presenter : BasePresenter{
 
         fun getCocktails()
-
         fun getCocktailsDB(): List<Cocktail>
-
+        fun onCocktailClicked(position: Int)
     }
 }

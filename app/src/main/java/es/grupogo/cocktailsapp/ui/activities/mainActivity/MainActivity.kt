@@ -16,6 +16,7 @@ import kotlinx.android.synthetic.main.activity_main.*
  */
 class MainActivity : AppCompatActivity(), MainContract.View {
 
+
     companion object Intents {
 
         fun newIntent(context: Context) : Intent {
@@ -31,7 +32,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        this.initToolbar(R.id.toolbar, R.id.toolbar_title, "CocktailsApp", false)
+        initToolbar(R.id.toolbar, "CocktailsApp")
         setupBottomNavigationBar()
 
         //Instantiate presenter
@@ -43,6 +44,10 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     //Called from presenter once instantiated
     override fun setPresenter(presenter: MainContract.Presenter) {
         mPresenter = presenter
+    }
+
+    override fun handleError(t: Throwable) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     fun setupBottomNavigationBar(){

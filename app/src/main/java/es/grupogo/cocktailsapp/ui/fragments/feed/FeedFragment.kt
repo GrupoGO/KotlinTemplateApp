@@ -11,11 +11,13 @@ import android.widget.Toast
 import es.grupogo.cocktailsapp.R
 import es.grupogo.cocktailsapp.domain.Cocktail
 import es.grupogo.cocktailsapp.ui.adapters.CockailsRecyclerAdapter
+import org.jetbrains.anko.toast
 
 /**
  * Created by jorge_cmata on 28/8/17.
  */
 class FeedFragment : Fragment() , FeedContract.View {
+
 
     //New instance
     companion object {
@@ -61,10 +63,14 @@ class FeedFragment : Fragment() , FeedContract.View {
     //-------View Functions-------//
 
     override fun setRecyclerItems(items: List<Cocktail>){
-        mRecycler.adapter = CockailsRecyclerAdapter(items)
+        mRecycler.adapter = CockailsRecyclerAdapter(items, {})
     }
 
-    override fun toast(message: String?) {
-        Toast.makeText(context, message,  Toast.LENGTH_SHORT).show()
+    override fun handleError(t: Throwable) {
+        context.toast(t.message.toString())
+    }
+
+    override fun showItemDetail(c: Cocktail) {
+        context.toast("Open Detail")
     }
 }
