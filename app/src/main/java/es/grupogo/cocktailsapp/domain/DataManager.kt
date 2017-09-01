@@ -32,9 +32,11 @@ class DataManager {
     //---- Request Manager functions ----//
 
     fun getCocktails(onSuccess: (List<Cocktail>) -> Unit, onError: (t: Throwable) -> Unit){
-        val cachedResults = databaseManager.retrieveCocktails()
+        //Observable cache
+        val observableCache = Observable.just(databaseManager.retrieveCocktails())
 
-        val observable: Observable<List<Cocktail>>  =
+        //Observable online request
+        val observableOnline: Observable<List<Cocktail>>  =
         requestManager.requestCocktails()
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.computation())
@@ -42,8 +44,8 @@ class DataManager {
                 .observeOn(AndroidSchedulers.mainThread())
                 .map { databaseManager.retrieveCocktails() }
 
-
-        observable.mergeWith(Observable.just(cachedResults))
+        //Merge
+        observableOnline.mergeWith(observableCache)
                 .subscribe({onSuccess(it)},{onError(it)})
     }
 
