@@ -3,8 +3,6 @@ package es.grupogo.cocktailsapp.ui.fragments.feed
 import android.util.Log
 import es.grupogo.cocktailsapp.domain.Cocktail
 import es.grupogo.cocktailsapp.domain.DataManager
-import io.realm.RealmChangeListener
-import io.realm.RealmResults
 
 /**
  * Created by jorge_cmata on 24/8/17.

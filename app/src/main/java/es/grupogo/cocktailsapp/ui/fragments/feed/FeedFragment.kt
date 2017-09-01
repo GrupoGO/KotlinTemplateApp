@@ -72,7 +72,7 @@ class FeedFragment : Fragment() , FeedContract.View {
         progressBar.hide()
     }
 
-    override fun setRecyclerItems(items: List<Cocktail>){
+    override fun setItemsOnView(items: List<Cocktail>){
         mRecycler.adapter = CockailsRecyclerAdapter(items, {context.toast(it.name.toString())})
     }
 

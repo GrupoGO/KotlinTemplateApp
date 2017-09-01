@@ -2,6 +2,7 @@ package es.grupogo.cocktailsapp.domain
 
 import android.content.Context
 import es.grupogo.cocktailsapp.data.database.DatabaseManager
+import es.grupogo.cocktailsapp.data.database.DatabaseMapper
 import es.grupogo.cocktailsapp.data.server.*
 import es.grupogo.cocktailsapp.extensions.execute
 import io.reactivex.Observable
@@ -36,13 +37,12 @@ class DataManager {
         val observableCache = Observable.just(databaseManager.retrieveCocktails())
 
         //Observable online request
-        val observableOnline: Observable<List<Cocktail>>  =
-        requestManager.requestCocktails()
+        val observableOnline = requestManager.requestCocktails()
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.computation())
-                .map { databaseManager.saveCocktails(it) }
+                .map { databaseManager.saveCocktails(DatabaseMapper.convertToCocktailRealmList(it)) }
                 .observeOn(AndroidSchedulers.mainThread())
-                .map { databaseManager.retrieveCocktails() }
+                .map { databaseManager.retrieveCocktails()}
 
         /*//Merge
         observableOnline.mergeWith(observableCache)

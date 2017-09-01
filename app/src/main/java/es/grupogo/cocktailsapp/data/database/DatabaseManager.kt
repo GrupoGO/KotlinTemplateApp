@@ -11,7 +11,6 @@ import io.realm.RealmResults
  */
 class DatabaseManager : DatabaseInterface{
 
-    // val realm : Realm by lazy {Realm.getDefaultInstance()}
 
     //Singleton
     companion object DatabaseManagerProvider {
@@ -20,7 +19,7 @@ class DatabaseManager : DatabaseInterface{
         }
     }
 
-    override fun saveCocktails(cocktails: List<Cocktail>)  {
+    override fun saveCocktails(cocktails: List<CocktailRealm>)  {
         val realm = Realm.getDefaultInstance()
         realm.beginTransaction()
         for (cocktail in cocktails) realm.copyToRealmOrUpdate(cocktail)
@@ -31,9 +30,9 @@ class DatabaseManager : DatabaseInterface{
 
         val realm = Realm.getDefaultInstance()
         realm.beginTransaction()
-        val cocktails = realm.where(Cocktail::class.java).findAll()
+        val cocktails = realm.where(CocktailRealm::class.java).findAll()
         realm.commitTransaction()
-        return cocktails
+        return DatabaseMapper.convertToCocktailList(cocktails)
     }
 
 }

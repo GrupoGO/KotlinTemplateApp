@@ -10,7 +10,7 @@ import io.realm.RealmResults
  */
 interface DatabaseInterface{
 
-    fun saveCocktails(cocktails: List<Cocktail>)
+    fun saveCocktails(cocktails: List<CocktailRealm>)
 
     fun retrieveCocktails() : List<Cocktail>
 }

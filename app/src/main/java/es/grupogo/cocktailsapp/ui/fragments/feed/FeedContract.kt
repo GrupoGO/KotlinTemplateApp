@@ -12,7 +12,7 @@ interface FeedContract {
     interface View : BaseView<Presenter> {
 
         fun showItemDetail(c: Cocktail)
-        fun setRecyclerItems(items: List<Cocktail>)
+        fun setItemsOnView(items: List<Cocktail>)
     }
 
     interface Presenter : BasePresenter{
