@@ -21,17 +21,16 @@ class DatabaseManager : DatabaseInterface{
 
     override fun saveCocktails(cocktails: List<CocktailRealm>)  {
         val realm = Realm.getDefaultInstance()
-        realm.beginTransaction()
-        for (cocktail in cocktails) realm.copyToRealmOrUpdate(cocktail)
-        realm.commitTransaction()
+
+        realm.executeTransaction {
+            for (cocktail in cocktails) realm.copyToRealmOrUpdate(cocktail)
+        }
     }
 
     override fun retrieveCocktails(): List<Cocktail> {
 
         val realm = Realm.getDefaultInstance()
-        realm.beginTransaction()
         val cocktails = realm.where(CocktailRealm::class.java).findAll()
-        realm.commitTransaction()
         return DatabaseMapper.convertToCocktailList(cocktails)
     }
 
