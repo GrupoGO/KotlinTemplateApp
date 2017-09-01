@@ -24,7 +24,7 @@ class FeedPresenter(val view : FeedContract.View) : FeedContract.Presenter {
         view.showLoader()
         dataManager.getCocktails({items, isCache ->
             if (!isCache) view.hideLoader()
-            view.setRecyclerItems(items)
+            view.showItems(items)
         }, {
             view.handleError(it)
             view.hideLoader()
