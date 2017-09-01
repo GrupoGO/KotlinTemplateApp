@@ -1,5 +1,6 @@
 package es.grupogo.cocktailsapp.ui.fragments.feed
 
+import android.util.Log
 import es.grupogo.cocktailsapp.domain.Cocktail
 import es.grupogo.cocktailsapp.domain.DataManager
 import io.realm.RealmChangeListener
@@ -22,15 +23,14 @@ class FeedPresenter(val view : FeedContract.View) : FeedContract.Presenter {
     }
 
     override fun getCocktails(){
-        dataManager.getCocktails({
-            view.setRecyclerItems(it)
+        view.showLoader()
+        dataManager.getCocktails({items, isCache ->
+            if (!isCache) view.hideLoader()
+            view.setRecyclerItems(items)
         }, {
-            it.printStackTrace()
+            view.handleError(it)
+            view.hideLoader()
         })
-    }
-
-    override fun getCocktailsDB(): List<Cocktail>{
-        return dataManager.getCocktailsDB()
     }
 
     override fun onCocktailClicked(position: Int) {

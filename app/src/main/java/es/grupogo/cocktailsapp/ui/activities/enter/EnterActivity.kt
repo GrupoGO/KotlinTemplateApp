@@ -44,4 +44,13 @@ class EnterActivity : AppCompatActivity(), EnterContract.View {
     override fun handleError(t: Throwable) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
+
+    override fun hideLoader() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun showLoader() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
 }

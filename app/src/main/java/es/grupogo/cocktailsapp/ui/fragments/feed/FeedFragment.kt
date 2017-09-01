@@ -10,13 +10,17 @@ import android.view.ViewGroup
 import android.widget.Toast
 import es.grupogo.cocktailsapp.R
 import es.grupogo.cocktailsapp.domain.Cocktail
+import es.grupogo.cocktailsapp.extensions.hide
+import es.grupogo.cocktailsapp.extensions.show
 import es.grupogo.cocktailsapp.ui.adapters.CockailsRecyclerAdapter
+import kotlinx.android.synthetic.main.fragment_feed.*
 import org.jetbrains.anko.toast
 
 /**
  * Created by jorge_cmata on 28/8/17.
  */
 class FeedFragment : Fragment() , FeedContract.View {
+
 
 
     //New instance
@@ -60,7 +64,13 @@ class FeedFragment : Fragment() , FeedContract.View {
     }
 
 
-    //-------View Functions-------//
+    override fun showLoader() {
+        progressBar.show()
+    }
+
+    override fun hideLoader() {
+        progressBar.hide()
+    }
 
     override fun setRecyclerItems(items: List<Cocktail>){
         mRecycler.adapter = CockailsRecyclerAdapter(items, {context.toast(it.name.toString())})

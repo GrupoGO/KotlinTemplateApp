@@ -31,7 +31,7 @@ class DataManager {
     //Functions
     //---- Request Manager functions ----//
 
-    fun getCocktails(onSuccess: (List<Cocktail>) -> Unit, onError: (t: Throwable) -> Unit){
+    fun getCocktails(onSuccess: (items: List<Cocktail>, isCache: Boolean) -> Unit, onError: (t: Throwable) -> Unit){
         //Observable cache
         val observableCache = Observable.just(databaseManager.retrieveCocktails())
 
@@ -44,9 +44,12 @@ class DataManager {
                 .observeOn(AndroidSchedulers.mainThread())
                 .map { databaseManager.retrieveCocktails() }
 
-        //Merge
+        /*//Merge
         observableOnline.mergeWith(observableCache)
-                .subscribe({onSuccess(it)},{onError(it)})
+                .subscribe({onSuccess(it)},{onError(it)})*/
+        //Merge
+        observableCache.subscribe({onSuccess(it, true)},{onError(it)})
+        observableOnline.subscribe({onSuccess(it, false)},{onError(it)})
     }
 
 

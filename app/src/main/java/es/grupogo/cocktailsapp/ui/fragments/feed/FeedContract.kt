@@ -18,7 +18,6 @@ interface FeedContract {
     interface Presenter : BasePresenter{
 
         fun getCocktails()
-        fun getCocktailsDB(): List<Cocktail>
         fun onCocktailClicked(position: Int)
     }
 }

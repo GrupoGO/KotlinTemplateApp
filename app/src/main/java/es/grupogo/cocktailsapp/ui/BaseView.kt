@@ -9,4 +9,6 @@ interface BaseView<T> {
 
     fun setPresenter(presenter: T)
     fun handleError(t: Throwable)
+    fun showLoader()
+    fun hideLoader()
 }

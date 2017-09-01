@@ -94,6 +94,14 @@ class SettingsFragment : Fragment() , SettingsContract.View {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
+    override fun hideLoader() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun showLoader() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     private fun setListeners(){
         mEditTextRow.setOnClickListener({
             val dialog = EditTextDialog.newInstance(mEditTextRowTitle.text.toString(), mEditTextRowValue.text.toString(),"Ok", "Cancel")

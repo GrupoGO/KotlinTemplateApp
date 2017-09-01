@@ -51,4 +51,12 @@ class SignInActivity : AppCompatActivity(), SignInContract.View {
         startActivity(MainActivity.newIntent(this))
     }
 
+    override fun hideLoader() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun showLoader() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
 }
