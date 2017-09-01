@@ -18,7 +18,6 @@ import org.jetbrains.anko.toast
  */
 class FeedFragment : Fragment() , FeedContract.View {
 
-
     //New instance
     companion object {
         fun newInstance(): FeedFragment {
@@ -62,7 +61,7 @@ class FeedFragment : Fragment() , FeedContract.View {
 
     //-------View Functions-------//
 
-    override fun setRecyclerItems(items: List<Cocktail>){
+    override fun setItemsOnView(items: List<Cocktail>){
         mRecycler.adapter = CockailsRecyclerAdapter(items, {context.toast(it.name.toString())})
     }
 
@@ -73,4 +72,7 @@ class FeedFragment : Fragment() , FeedContract.View {
     override fun showItemDetail(c: Cocktail) {
         context.toast("Open Detail")
     }
+
+
+
 }

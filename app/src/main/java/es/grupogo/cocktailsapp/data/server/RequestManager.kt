@@ -18,7 +18,7 @@ class RequestManager(val apiService: CocktailApiService) : RequestInterface  {
     //Functions interface
     override fun requestCocktails(): Observable<List<Cocktail>> {
         val drinksJsonObj: Observable<DrinksJSONObj> = apiService.requestCocktails("Cocktail")
-        return drinksJsonObj.map { DataMapper.convertToCocktailList(it)}
+        return drinksJsonObj.map { ServerMapper.convertToCocktailList(it)}
     }
 
 }

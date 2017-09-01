@@ -6,16 +6,5 @@ import io.realm.annotations.PrimaryKey
 /**
  * Created by jorge_cmata on 25/8/17.
  */
-open class Cocktail(
-        @PrimaryKey open var id: String = "",
-        open var name: String? = null,
-        open var imageUrl: String? = null
-)
-    : RealmObject() {
 
-    fun copy(
-            id: String = this.id,
-            name: String? = this.name,
-            imageUrl: String? = this.imageUrl)
-            = Cocktail(id, name, imageUrl)
-}
+data class Cocktail(val id: String, val name: String?, val imageUrl: String?)

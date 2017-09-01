@@ -2,8 +2,6 @@ package es.grupogo.cocktailsapp.ui.fragments.feed
 
 import es.grupogo.cocktailsapp.domain.Cocktail
 import es.grupogo.cocktailsapp.domain.DataManager
-import io.realm.RealmChangeListener
-import io.realm.RealmResults
 
 /**
  * Created by jorge_cmata on 24/8/17.
@@ -23,9 +21,10 @@ class FeedPresenter(val view : FeedContract.View) : FeedContract.Presenter {
 
     override fun getCocktails(){
         dataManager.getCocktails({
-            view.setRecyclerItems(it)
+            view.setItemsOnView(it)
         }, {
             it.printStackTrace()
+            view.handleError(it)
         })
     }
 

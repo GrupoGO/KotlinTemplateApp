@@ -5,7 +5,7 @@ import es.grupogo.cocktailsapp.domain.Cocktail
 /**
  * Created by jorge_cmata on 25/8/17.
  */
-object DataMapper{
+object ServerMapper {
 
     fun convertToCocktailList(drinksObj: DrinksJSONObj): List<Cocktail> {
         val cocktailJsonObjList: List<CocktailJSONObj> = drinksObj.drinks
