@@ -5,13 +5,15 @@ import es.grupogo.cocktailsapp.data.database.DatabaseManager
 import es.grupogo.cocktailsapp.data.server.*
 import es.grupogo.cocktailsapp.extensions.execute
 import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import io.realm.Realm
 import io.realm.RealmResults
 
 /**
  * Created by jorge_cmata on 25/8/17.
  */
-class DataManager() {
+class DataManager {
 
     //Singleton
     companion object DataManagerProvider {
@@ -24,28 +26,32 @@ class DataManager() {
     val requestManager : RequestManager by lazy {RequestManager.provideRequestManager()}
     val databaseManager : DatabaseManager by lazy {DatabaseManager.provideDatabaseManager()}
     //val sessionManager : SessionManager by lazy {SessionManager.provideSessionManager(context)}
-    val realm : Realm by lazy {Realm.getDefaultInstance()}
 
 
     //Functions
     //---- Request Manager functions ----//
 
     fun getCocktails(onSuccess: (List<Cocktail>) -> Unit, onError: (t: Throwable) -> Unit){
-        requestManager.requestCocktails().execute({
-            //Save data in realm
-            databaseManager.saveCocktails(realm, it)
-            //retrieve realm objects
-            onSuccess(databaseManager.retrieveCocktails(realm))
-        }, {
-            onError(it)
-        })
+        val cachedResults = databaseManager.retrieveCocktails()
+
+        val observable: Observable<List<Cocktail>>  =
+        requestManager.requestCocktails()
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.computation())
+                .map { databaseManager.saveCocktails(it) }
+                .observeOn(AndroidSchedulers.mainThread())
+                .map { databaseManager.retrieveCocktails() }
+
+
+        observable.mergeWith(Observable.just(cachedResults))
+                .subscribe({onSuccess(it)},{onError(it)})
     }
 
 
     //---- Database Manager functions ----//
 
     fun getCocktailsDB(): List<Cocktail>{
-        return databaseManager.retrieveCocktails(realm)
+        return databaseManager.retrieveCocktails()
     }
 
     fun signIn(username: String, password: String, onSuccess: () -> Unit, onError: (t: Throwable) -> Unit) {

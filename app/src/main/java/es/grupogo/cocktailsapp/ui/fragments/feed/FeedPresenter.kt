@@ -10,7 +10,6 @@ import io.realm.RealmResults
  */
 class FeedPresenter(val view : FeedContract.View) : FeedContract.Presenter {
 
-    private lateinit var items: List<Cocktail>
 
     val dataManager : DataManager by lazy { DataManager.provideDataManager() }
 
@@ -19,20 +18,11 @@ class FeedPresenter(val view : FeedContract.View) : FeedContract.Presenter {
     }
 
     override fun start() {
-        //Getting cocktails from DB and setting a listener
-        val cocktailsList: RealmResults<Cocktail> = getCocktailsDB() as RealmResults<Cocktail>
-        cocktailsList.addChangeListener(RealmChangeListener<RealmResults<Cocktail>> {
-            view.setRecyclerItems(it)
-        })
-        //Update view with saved values
-        view.setRecyclerItems(cocktailsList)
-        //Online call
         getCocktails()
     }
 
     override fun getCocktails(){
         dataManager.getCocktails({
-            items = it
             view.setRecyclerItems(it)
         }, {
             it.printStackTrace()

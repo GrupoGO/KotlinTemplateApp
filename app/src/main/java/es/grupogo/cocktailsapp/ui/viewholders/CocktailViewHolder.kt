@@ -3,6 +3,7 @@ package es.grupogo.cocktailsapp.ui.viewholders
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.TextView
+import es.grupogo.cocktailsapp.R
 import es.grupogo.cocktailsapp.domain.Cocktail
 import kotlinx.android.synthetic.main.list_item_cocktail.view.*
 
@@ -13,14 +14,16 @@ import kotlinx.android.synthetic.main.list_item_cocktail.view.*
 class CocktailViewHolder(itemView: View, itemClick: (Cocktail) -> Unit) : RecyclerView.ViewHolder(itemView) {
 
     private lateinit  var item : Cocktail
+    private var mTextViewNameTV: TextView?
 
     init {
+        mTextViewNameTV = itemView.findViewById(R.id.textViewName)
         itemView.setOnClickListener { itemClick(item) }
     }
 
     fun bindItem(c: Cocktail) {
 
         item = c
-        itemView.textViewName.text = c.name
+        mTextViewNameTV?.text = c.name
     }
 }
