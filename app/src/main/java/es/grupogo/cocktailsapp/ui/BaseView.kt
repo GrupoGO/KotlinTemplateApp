@@ -7,6 +7,7 @@ import android.content.Context
  */
 interface BaseView<T> {
 
+    fun getContext() : Context
     fun setPresenter(presenter: T)
     fun handleError(t: Throwable)
     fun showLoader()

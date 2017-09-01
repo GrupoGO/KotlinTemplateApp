@@ -14,19 +14,19 @@ import io.realm.RealmResults
 /**
  * Created by jorge_cmata on 25/8/17.
  */
-class DataManager {
+class DataManager(val context: Context) {
 
     //Singleton
     companion object DataManagerProvider {
-        fun provideDataManager(): DataManager {
-            return DataManager()
+        fun provideDataManager(context: Context): DataManager {
+            return DataManager(context)
         }
     }
 
     //Initialize managers (lazy -> The initialisation of the property is delayed up to the moment. We can save memory and skip the initialisation until the property is required)'
     val requestManager : RequestManager by lazy {RequestManager.provideRequestManager()}
     val databaseManager : DatabaseManager by lazy {DatabaseManager.provideDatabaseManager()}
-    //val sessionManager : SessionManager by lazy {SessionManager.provideSessionManager(context)}
+    val sessionManager : SessionManager by lazy {SessionManager.provideSessionManager(context)}
 
 
     //Functions
@@ -65,7 +65,7 @@ class DataManager {
             username.isEmpty() -> onError(Exception("Username is empty"))
             password.isEmpty() -> onError(Exception("Password is empty"))
             else -> {
-                //sessionManager.createSession(username)
+                sessionManager.createSession(username)
                 onSuccess()
             }
         }
@@ -76,13 +76,15 @@ class DataManager {
             username.isEmpty() -> onError(Exception("Username is empty"))
             password.isEmpty() -> onError(Exception("Password is empty"))
             else -> {
-                //sessionManager.createSession(username)
+                sessionManager.createSession(username)
                 onSuccess()
             }
         }
     }
 
+    fun isLoggedIn() : Boolean = sessionManager.isLoggedIn()
+
     fun logout() {
-        //sessionManager.destroySession()
+        sessionManager.destroySession()
     }
 }

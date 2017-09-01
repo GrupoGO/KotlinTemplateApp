@@ -21,8 +21,6 @@ import org.jetbrains.anko.toast
  */
 class FeedFragment : Fragment() , FeedContract.View {
 
-
-
     //New instance
     companion object {
         fun newInstance(): FeedFragment {

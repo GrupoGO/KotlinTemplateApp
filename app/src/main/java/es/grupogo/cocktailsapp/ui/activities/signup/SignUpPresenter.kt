@@ -7,7 +7,7 @@ import es.grupogo.cocktailsapp.domain.DataManager
  */
 class SignUpPresenter(val view : SignUpContract.View) : SignUpContract.Presenter {
 
-    val dataManager : DataManager by lazy { DataManager.provideDataManager() }
+    val dataManager : DataManager by lazy { DataManager.provideDataManager(view.getContext()) }
 
     init {
         this.view.setPresenter(this)

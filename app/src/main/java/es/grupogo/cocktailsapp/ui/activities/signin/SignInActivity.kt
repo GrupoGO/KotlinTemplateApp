@@ -46,6 +46,9 @@ class SignInActivity : AppCompatActivity(), SignInContract.View {
         toast(throwable.message.toString())
     }
 
+    override fun getContext(): Context = applicationContext
+
+
     override fun enterApp() {
 
         startActivity(MainActivity.newIntent(this))

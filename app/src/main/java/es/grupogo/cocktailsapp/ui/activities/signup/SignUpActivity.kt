@@ -50,6 +50,9 @@ class SignUpActivity : AppCompatActivity(), SignUpContract.View {
 
         startActivity(MainActivity.newIntent(this))
     }
+
+    override fun getContext(): Context = getContext()
+
     override fun hideLoader() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }

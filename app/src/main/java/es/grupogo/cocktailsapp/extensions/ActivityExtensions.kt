@@ -1,5 +1,6 @@
 package es.grupogo.cocktailsapp.extensions
 
+import android.content.Context
 import android.support.v7.app.AppCompatActivity
 import es.grupogo.cocktailsapp.R
 
@@ -12,3 +13,5 @@ fun AppCompatActivity.initToolbar(idToolbar: Int, title: String = "", ishomeEnab
     supportActionBar?.title = title
     supportActionBar?.setHomeButtonEnabled(ishomeEnabled)
 }
+
+fun AppCompatActivity.getContext() : Context = applicationContext

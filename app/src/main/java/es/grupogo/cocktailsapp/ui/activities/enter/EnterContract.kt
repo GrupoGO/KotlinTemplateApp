@@ -13,6 +13,7 @@ interface EnterContract {
 
         fun goToSignIn()
         fun goToSignUp()
+        fun goToMain()
     }
 
     interface Presenter : BasePresenter {

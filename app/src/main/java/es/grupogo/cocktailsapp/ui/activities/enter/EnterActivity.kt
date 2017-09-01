@@ -1,9 +1,11 @@
 package es.grupogo.cocktailsapp.ui.activities.enter
 
+import android.content.Context
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v7.app.AppCompatActivity
 import es.grupogo.cocktailsapp.R
+import es.grupogo.cocktailsapp.ui.activities.mainActivity.MainActivity
 import es.grupogo.cocktailsapp.ui.activities.signin.SignInActivity
 import kotlinx.android.synthetic.main.activity_enter.*
 
@@ -11,6 +13,11 @@ import kotlinx.android.synthetic.main.activity_enter.*
  * Created by jorge_cmata on 28/8/17.
  */
 class EnterActivity : AppCompatActivity(), EnterContract.View {
+    override fun getContext(): Context = applicationContext
+
+    override fun goToMain() {
+        startActivity(MainActivity.newIntent(this))
+    }
 
 
     private lateinit var mPresenter : EnterContract.Presenter

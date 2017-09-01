@@ -9,8 +9,7 @@ import es.grupogo.cocktailsapp.domain.DataManager
  */
 class FeedPresenter(val view : FeedContract.View) : FeedContract.Presenter {
 
-
-    val dataManager : DataManager by lazy { DataManager.provideDataManager() }
+    val dataManager : DataManager by lazy { DataManager.provideDataManager(view.getContext()) }
 
     init {
         this.view.setPresenter(this)

@@ -13,7 +13,6 @@ interface SettingsContract {
 
     interface View : BaseView<Presenter> {
 
-        fun getContext(): Context
         fun updateUsernameView(usernameTitle: String, usernameValue: String)
         fun updateGenderView(genderTitle: String, genderValue: String)
         fun updateBirthdateView(birthdateTitle: String, birthdateValue: String)

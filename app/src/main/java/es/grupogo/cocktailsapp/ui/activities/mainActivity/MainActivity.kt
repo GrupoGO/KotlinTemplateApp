@@ -22,6 +22,8 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         fun newIntent(context: Context) : Intent {
 
             val intent = Intent(context, MainActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
             return intent
         }
     }
@@ -57,6 +59,8 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     override fun showLoader() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
+    override fun getContext(): Context = getContext()
+
 
     fun setupBottomNavigationBar(){
         //Set default fragment
