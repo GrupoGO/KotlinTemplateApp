@@ -1,5 +1,6 @@
 package es.grupogo.cocktailsapp.data.database
 
+import android.widget.ListAdapter
 import es.grupogo.cocktailsapp.domain.Cocktail
 import io.reactivex.Observable
 import io.realm.Realm
@@ -19,11 +20,11 @@ class DatabaseManager : DatabaseInterface{
         }
     }
 
-    override fun saveCocktails(cocktails: List<CocktailRealm>)  {
+    override fun saveCocktails(cocktails: List<Cocktail>)  {
         val realm = Realm.getDefaultInstance()
 
         realm.executeTransaction {
-            for (cocktail in cocktails) realm.copyToRealmOrUpdate(cocktail)
+            for (cocktail in cocktails) realm.copyToRealmOrUpdate(DatabaseMapper.convertToCocktailRealm(cocktail))
         }
     }
 

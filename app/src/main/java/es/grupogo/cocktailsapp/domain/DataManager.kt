@@ -1,6 +1,7 @@
 package es.grupogo.cocktailsapp.domain
 
 import android.content.Context
+import es.grupogo.cocktailsapp.data.database.CocktailRealm
 import es.grupogo.cocktailsapp.data.database.DatabaseManager
 import es.grupogo.cocktailsapp.data.database.DatabaseMapper
 import es.grupogo.cocktailsapp.data.server.*
@@ -9,6 +10,7 @@ import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import io.realm.Realm
+import io.realm.RealmChangeListener
 import io.realm.RealmResults
 
 /**
@@ -40,24 +42,20 @@ class DataManager(val context: Context) {
         val observableOnline = requestManager.requestCocktails()
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.computation())
-                .map { databaseManager.saveCocktails(DatabaseMapper.convertToCocktailRealmList(it)) }
+                .map { databaseManager.saveCocktails(it) }
                 .observeOn(AndroidSchedulers.mainThread())
-                .map { databaseManager.retrieveCocktails()}
+                .map { databaseManager.retrieveCocktails() }
 
         /*//Merge
         observableOnline.mergeWith(observableCache)
                 .subscribe({onSuccess(it)},{onError(it)})*/
+
         //Merge
         observableCache.subscribe({onSuccess(it, true)},{onError(it)})
         observableOnline.subscribe({onSuccess(it, false)},{onError(it)})
     }
 
-
     //---- Database Manager functions ----//
-
-    fun getCocktailsDB(): List<Cocktail>{
-        return databaseManager.retrieveCocktails()
-    }
 
     fun signIn(username: String, password: String, onSuccess: () -> Unit, onError: (t: Throwable) -> Unit) {
 
