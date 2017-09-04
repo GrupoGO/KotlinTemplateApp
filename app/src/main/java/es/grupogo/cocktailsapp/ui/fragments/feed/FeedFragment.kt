@@ -1,11 +1,9 @@
 package es.grupogo.cocktailsapp.ui.fragments.feed
 
-import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.*
 import es.grupogo.cocktailsapp.R
 import es.grupogo.cocktailsapp.domain.Cocktail
@@ -13,13 +11,10 @@ import es.grupogo.cocktailsapp.extensions.hide
 import es.grupogo.cocktailsapp.extensions.show
 import es.grupogo.cocktailsapp.ui.adapters.CockailsRecyclerAdapter
 import es.grupogo.cocktailsapp.ui.dialogs.CheckboxDialog
-import es.grupogo.cocktailsapp.ui.dialogs.EditTextDialog
-import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter
 import jp.wasabeef.recyclerview.adapters.SlideInBottomAnimationAdapter
 import kotlinx.android.synthetic.main.fragment_feed.*
 import org.jetbrains.anko.toast
 import android.view.animation.AnimationUtils
-import android.view.animation.LayoutAnimationController
 import es.grupogo.cocktailsapp.ui.activities.detail.DetailActivity
 
 
@@ -40,7 +35,7 @@ class FeedFragment : Fragment() , FeedContract.View {
 
     private val CODE_DETAIL = 1
     private lateinit var mPresenter : FeedContract.Presenter
-    private lateinit var mRecycler : RecyclerView
+    private lateinit var adapter : CockailsRecyclerAdapter
     private var selectedFilters: List<String>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -56,15 +51,27 @@ class FeedFragment : Fragment() , FeedContract.View {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        bindViews(view)
         setupRecycler()
+        setupRefreshLayout()
 
         //Kick off presenter
         mPresenter.start()
     }
 
+    private fun setupRefreshLayout() {
+        refreshLayout.setOnRefreshListener { mPresenter.getData() }
+    }
+
     fun setupRecycler() {
-        mRecycler.layoutManager = LinearLayoutManager(context)
+        recycler.layoutManager = LinearLayoutManager(context)
+        val animation = AnimationUtils.loadLayoutAnimation(context, R.anim.layout_animation_fall_down)
+        recycler.layoutAnimation = animation
+        adapter = CockailsRecyclerAdapter(emptyList(), {
+            startActivityForResult(DetailActivity.newIntent(context, it.id), CODE_DETAIL)
+            activity.overridePendingTransition(R.anim.activity_in, R.anim.activity_out)
+        })
+        recycler.adapter = SlideInBottomAnimationAdapter(adapter)
+        //mRecycler.adapter = adapter
     }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
@@ -90,9 +97,6 @@ class FeedFragment : Fragment() , FeedContract.View {
         return true
     }
 
-    private fun bindViews(view: View){
-        mRecycler = view.findViewById(R.id.recycler)
-    }
 
     override fun setPresenter(presenter: FeedContract.Presenter) {
         mPresenter = presenter
@@ -100,24 +104,18 @@ class FeedFragment : Fragment() , FeedContract.View {
 
 
     override fun showLoader() {
-        progressBar.show()
+        //progressBar.show()
+        refreshLayout.isRefreshing = true
     }
 
     override fun hideLoader() {
-        progressBar.hide()
+        //progressBar.hide()
+        refreshLayout.isRefreshing = false
+
     }
 
     override fun showItems(items: List<Cocktail>){
-
-        val animation = AnimationUtils.loadLayoutAnimation(context, R.anim.layout_animation_fall_down)
-        mRecycler.layoutAnimation = animation
-
-        val adapter = CockailsRecyclerAdapter(items, {
-            startActivityForResult(DetailActivity.newIntent(context, it.id), CODE_DETAIL)
-            activity.overridePendingTransition(R.anim.activity_in, R.anim.activity_out) //animation
-        })
-        mRecycler.adapter = SlideInBottomAnimationAdapter(adapter)
-        //mRecycler.adapter = adapter
+        adapter.setDataSet(items)
     }
 
     override fun handleError(t: Throwable) {
@@ -126,7 +124,7 @@ class FeedFragment : Fragment() , FeedContract.View {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if(requestCode == CODE_DETAIL){
-            mPresenter.getCocktailsDB()
+            mPresenter.getCachedData()
         }
     }
 

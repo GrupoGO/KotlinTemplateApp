@@ -11,7 +11,7 @@ import es.grupogo.cocktailsapp.ui.viewholders.CocktailViewHolder
 /**
  * Created by jorge_cmata on 24/8/17.
  */
-class CockailsRecyclerAdapter(val items: List<Cocktail>, val itemClick: (Cocktail) -> Unit) : RecyclerView.Adapter<CocktailViewHolder>() {
+class CockailsRecyclerAdapter(var items: List<Cocktail>, val itemClick: (Cocktail) -> Unit) : RecyclerView.Adapter<CocktailViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CocktailViewHolder {
         return CocktailViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_item_cocktail, parent, false), {itemClick(it)})
@@ -24,4 +24,8 @@ class CockailsRecyclerAdapter(val items: List<Cocktail>, val itemClick: (Cocktai
     override fun getItemCount(): Int = items.size
 
 
+    fun setDataSet(newItems : List<Cocktail>) {
+        items = newItems
+        notifyDataSetChanged()
+    }
 }

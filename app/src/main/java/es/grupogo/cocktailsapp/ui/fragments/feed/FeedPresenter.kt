@@ -1,6 +1,5 @@
 package es.grupogo.cocktailsapp.ui.fragments.feed
 
-import android.util.Log
 import es.grupogo.cocktailsapp.domain.Cocktail
 import es.grupogo.cocktailsapp.domain.DataManager
 
@@ -17,10 +16,10 @@ class FeedPresenter(val view : FeedContract.View) : FeedContract.Presenter {
     }
 
     override fun start() {
-        getCocktails()
+        getData()
     }
 
-    override fun getCocktails(){
+    override fun getData(){
         view.showLoader()
         dataManager.getCocktails({items, isCache ->
             if (!isCache) view.hideLoader()
@@ -32,7 +31,7 @@ class FeedPresenter(val view : FeedContract.View) : FeedContract.Presenter {
         })
     }
 
-    override fun getCocktailsDB(){
+    override fun getCachedData(){
         view.showLoader()
         dataManager.getCocktailsDB({
             view.hideLoader()

@@ -16,8 +16,8 @@ interface FeedContract {
 
     interface Presenter : BasePresenter{
 
-        fun getCocktails()
-        fun getCocktailsDB()
+        fun getData()
+        fun getCachedData()
         fun applyFilter(selectedValues: List<String>)
     }
 }

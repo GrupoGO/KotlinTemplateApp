@@ -9,8 +9,8 @@ object ServerMapper {
 
     fun convertToCocktailList(drinksObj: DrinksJSONObj): List<Cocktail> {
         val cocktailJsonObjList: List<CocktailJSONObj> = drinksObj.drinks
-        return cocktailJsonObjList.mapIndexed { i, cocktailJSONObj ->
-            convertToCocktail(cocktailJSONObj)
+        return cocktailJsonObjList.map{
+            convertToCocktail(it)
         }
     }
 
