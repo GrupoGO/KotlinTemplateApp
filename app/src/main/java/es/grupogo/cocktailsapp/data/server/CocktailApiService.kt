@@ -9,7 +9,7 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 interface CocktailApiService {
 
     @retrofit2.http.GET("filter.php")
-    fun requestCocktails(@retrofit2.http.Query("c") query: String) : Observable<DrinksJSONObj>
+    fun requestCocktails(@retrofit2.http.Query("c") query: String) : Observable<DrinksServer>
 
 
     /**

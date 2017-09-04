@@ -7,14 +7,14 @@ import es.grupogo.cocktailsapp.domain.Cocktail
  */
 object ServerMapper {
 
-    fun convertToCocktailList(drinksObj: DrinksJSONObj): List<Cocktail> {
-        val cocktailJsonObjList: List<CocktailJSONObj> = drinksObj.drinks
-        return cocktailJsonObjList.map{
+    fun convertToCocktailList(drinksObj: DrinksServer): List<Cocktail> {
+        val cocktailServerList: List<CocktailServer> = drinksObj.drinks
+        return cocktailServerList.map{
             convertToCocktail(it)
         }
     }
 
-    fun convertToCocktail(cocktailJSONObj: CocktailJSONObj): Cocktail {
-        return Cocktail(cocktailJSONObj.idDrink, cocktailJSONObj.strDrink, cocktailJSONObj.strDrinkThumb)
+    fun convertToCocktail(cocktailServer: CocktailServer): Cocktail {
+        return Cocktail(cocktailServer.idDrink, cocktailServer.strDrink, cocktailServer.strDrinkThumb)
     }
 }
