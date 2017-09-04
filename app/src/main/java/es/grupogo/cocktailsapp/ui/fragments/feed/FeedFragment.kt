@@ -13,8 +13,14 @@ import es.grupogo.cocktailsapp.domain.Cocktail
 import es.grupogo.cocktailsapp.extensions.hide
 import es.grupogo.cocktailsapp.extensions.show
 import es.grupogo.cocktailsapp.ui.adapters.CockailsRecyclerAdapter
+import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter
+import jp.wasabeef.recyclerview.adapters.SlideInBottomAnimationAdapter
 import kotlinx.android.synthetic.main.fragment_feed.*
 import org.jetbrains.anko.toast
+import android.view.animation.AnimationUtils
+import android.view.animation.LayoutAnimationController
+
+
 
 /**
  * Created by jorge_cmata on 28/8/17.
@@ -47,14 +53,18 @@ class FeedFragment : Fragment() , FeedContract.View {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         bindViews(view)
+        setupRecycler()
 
         //Kick off presenter
         mPresenter.start()
     }
 
+    fun setupRecycler() {
+        mRecycler.layoutManager = LinearLayoutManager(context)
+    }
+
     private fun bindViews(view: View){
         mRecycler = view.findViewById(R.id.recycler)
-        mRecycler.layoutManager = LinearLayoutManager(context)
     }
 
     override fun setPresenter(presenter: FeedContract.Presenter) {
@@ -71,7 +81,13 @@ class FeedFragment : Fragment() , FeedContract.View {
     }
 
     override fun showItems(items: List<Cocktail>){
-        mRecycler.adapter = CockailsRecyclerAdapter(items, {context.toast(it.name.toString())})
+
+        val animation = AnimationUtils.loadLayoutAnimation(context, R.anim.layout_animation_fall_down)
+        mRecycler.layoutAnimation = animation
+
+        val adapter = CockailsRecyclerAdapter(items, {context.toast(it.name.toString())})
+        mRecycler.adapter = SlideInBottomAnimationAdapter(adapter)
+        //mRecycler.adapter = adapter
     }
 
     override fun handleError(t: Throwable) {

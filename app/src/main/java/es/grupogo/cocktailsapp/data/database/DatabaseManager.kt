@@ -33,5 +33,4 @@ class DatabaseManager : DatabaseInterface{
         val cocktails = realm.where(CocktailRealm::class.java).findAll()
         return DatabaseMapper.convertToCocktailList(cocktails)
     }
-
 }
