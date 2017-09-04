@@ -11,13 +11,13 @@ interface FeedContract {
 
     interface View : BaseView<Presenter> {
 
-        fun showItemDetail(c: Cocktail)
         fun showItems(items: List<Cocktail>)
     }
 
     interface Presenter : BasePresenter{
 
         fun getCocktails()
-        fun onCocktailClicked(position: Int)
+        fun getCocktailsDB()
+        fun applyFilter(selectedValues: List<String>)
     }
 }

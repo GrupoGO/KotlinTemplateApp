@@ -14,4 +14,8 @@ interface DatabaseInterface{
     fun saveCocktails(cocktails: List<Cocktail>)
 
     fun retrieveCocktails(): List<Cocktail>
+
+    fun retrieveCocktail(id: String): Cocktail
+
+    fun updateCocktail(id: String, newName: String)
 }

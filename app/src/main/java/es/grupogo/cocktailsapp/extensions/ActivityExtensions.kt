@@ -11,7 +11,7 @@ fun AppCompatActivity.initToolbar(idToolbar: Int, title: String = "", ishomeEnab
 
     setSupportActionBar(findViewById(idToolbar))
     supportActionBar?.title = title
-    supportActionBar?.setHomeButtonEnabled(ishomeEnabled)
+    supportActionBar?.setDisplayHomeAsUpEnabled(ishomeEnabled)
 }
 
 fun AppCompatActivity.getContext() : Context = applicationContext

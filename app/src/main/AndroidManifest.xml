@@ -12,10 +12,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.activities.mainActivity.MainActivity"
+        <activity android:name=".ui.activities.main.MainActivity"
             android:screenOrientation="portrait">
         </activity>
-
+        <activity android:name=".ui.activities.detail.DetailActivity"
+            android:screenOrientation="portrait">
+        </activity>
         <activity android:name=".ui.activities.signin.SignInActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".ui.activities.enter.EnterActivity"

@@ -1,8 +1,7 @@
-package es.grupogo.cocktailsapp.ui.activities.mainActivity
+package es.grupogo.cocktailsapp.ui.activities.main
 
 import com.example.carlosolmedo.kotlinapp.mvp.BasePresenter
 import com.example.carlosolmedo.kotlinapp.mvp.BaseView
-import es.grupogo.cocktailsapp.domain.Cocktail
 
 /**
  * Created by jorge_cmata on 28/8/17.

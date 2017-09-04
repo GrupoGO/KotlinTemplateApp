@@ -1,4 +1,4 @@
-package es.grupogo.cocktailsapp.ui.activities.mainActivity
+package es.grupogo.cocktailsapp.ui.activities.main
 
 import android.content.Context
 import android.content.Intent
@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        initToolbar(R.id.toolbar,  "CocktailsApp")
+        initToolbar(R.id.toolbar,  "CocktailsApp", false)
         setupBottomNavigationBar()
 
         //Instantiate presenter

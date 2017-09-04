@@ -34,4 +34,20 @@ class DatabaseManager : DatabaseInterface{
         val cocktails = realm.where(CocktailRealm::class.java).findAll()
         return DatabaseMapper.convertToCocktailList(cocktails)
     }
+
+    override fun retrieveCocktail(id: String): Cocktail {
+
+        val realm = Realm.getDefaultInstance()
+        val cocktail = realm.where(CocktailRealm::class.java).equalTo("id", id).findFirst()
+        return DatabaseMapper.convertToCocktail(cocktail)
+    }
+
+    override fun updateCocktail(id: String, newName: String) {
+
+        val realm = Realm.getDefaultInstance()
+        val cocktail = realm.where(CocktailRealm::class.java).equalTo("id", id).findFirst()
+        realm.executeTransaction {
+            cocktail.name = newName
+        }
+    }
 }

@@ -57,6 +57,23 @@ class DataManager(val context: Context) {
 
     //---- Database Manager functions ----//
 
+    fun getCocktailsDB(onSuccess: (items: List<Cocktail>) -> Unit, onError: (t: Throwable) -> Unit){
+        Observable.just(databaseManager.retrieveCocktails())
+                .subscribe({onSuccess(it)},{onError(it)})
+    }
+
+
+    fun getCocktailDetailDB(cocktailId: String, onSuccess: (cocktail: Cocktail) -> Unit, onError: (t: Throwable) -> Unit){
+        Observable.just(databaseManager.retrieveCocktail(cocktailId))
+                .subscribe({onSuccess(it)},{onError(it)})
+    }
+
+    fun updateCocktailName(id: String, newName: String, onSuccess: (Unit) -> Unit, onError: (t: Throwable) -> Unit){
+        Observable.just(databaseManager.updateCocktail(id, newName))
+                .subscribe({onSuccess(it)},{onError(it)})
+    }
+
+
     fun signIn(username: String, password: String, onSuccess: () -> Unit, onError: (t: Throwable) -> Unit) {
 
         when {

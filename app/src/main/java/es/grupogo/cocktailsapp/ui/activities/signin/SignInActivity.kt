@@ -5,7 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import es.grupogo.cocktailsapp.R
-import es.grupogo.cocktailsapp.ui.activities.mainActivity.MainActivity
+import es.grupogo.cocktailsapp.ui.activities.main.MainActivity
 import kotlinx.android.synthetic.main.activity_sign_in.*
 import org.jetbrains.anko.toast
 
