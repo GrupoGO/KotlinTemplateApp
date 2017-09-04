@@ -3,6 +3,7 @@ package es.grupogo.cocktailsapp.data.database
 import es.grupogo.cocktailsapp.domain.Cocktail
 import io.reactivex.Observable
 import io.realm.Realm
+import io.realm.RealmChangeListener
 import io.realm.RealmResults
 
 /**
@@ -10,7 +11,7 @@ import io.realm.RealmResults
  */
 interface DatabaseInterface{
 
-    fun saveCocktails(cocktails: List<CocktailRealm>)
+    fun saveCocktails(cocktails: List<Cocktail>)
 
-    fun retrieveCocktails() : List<Cocktail>
+    fun retrieveCocktails(): List<Cocktail>
 }
